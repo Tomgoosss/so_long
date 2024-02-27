@@ -1,11 +1,11 @@
 NAME	:= Game
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -fsanitize=address
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast #-fsanitize=address
 LIBMLX	:= ./MLX42
 LIBFT := ./libft
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include -I$(LIBFT)
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm  $(LIBFT)/libft.a -fsanitize=address
-SRCS	:= main.c map.c #$(shell find ./src -iname "*.c")
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm  $(LIBFT)/libft.a #-fsanitize=address
+SRCS	:= main.c map.c movecollect.c #$(shell find ./src -iname "*.c")
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx libft $(NAME)
