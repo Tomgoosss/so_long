@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:32:00 by tgoossen          #+#    #+#             */
-/*   Updated: 2024/02/27 14:30:07 by tgoossen         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:00:41 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ void	placeplayer(t_game *man)
 {
 	man->map.x = 0;
 	man->map.y = 0;
-
 	while (man->map.y != man->map.y_end)
 	{
 		man->map.x = 0;
-		while (man->map.fullmap[man->map.y][man->map.x] != '\0' )
+		while (man->map.fullmap[man->map.y][man->map.x] != '\0')
 		{
 			if (man->map.fullmap[man->map.y][man->map.x] == 'P')
-				mlx_image_to_window(man->mlx, man->images.player,
-					man->map.x * 100, man->map.y * 100);
+				mlx_image_to_window(man->mlx, man->images.player, man->map.x
+					* 100, man->map.y * 100);
 			man->map.x++;
 		}
 		man->map.y++;
@@ -33,32 +32,30 @@ void	placeplayer(t_game *man)
 
 void	mapmake(t_game *man)
 {
-
 	while (man->map.y != man->map.y_end)
 	{
 		man->map.x = 0;
-		while (man->map.fullmap[man->map.y][man->map.x] != '\0' )
+		while (man->map.fullmap[man->map.y][man->map.x] != '\0')
 		{
 			if (man->map.fullmap[man->map.y][man->map.x] == '0')
-				mlx_image_to_window(man->mlx, man->images.floor, man->map.x * 100, man->map.y * 100);
+				draw_image(man, man->images.floor, man->map.x, man->map.y);
 			else if (man->map.fullmap[man->map.y][man->map.x] == '1')
-				mlx_image_to_window(man->mlx, man->images.wall, man->map.x * 100, man->map.y * 100);
+				draw_image(man, man->images.wall, man->map.x, man->map.y);
 			else if (man->map.fullmap[man->map.y][man->map.x] == 'C')
 			{
-				mlx_image_to_window(man->mlx, man->images.floor, man->map.x * 100, man->map.y * 100);
+				draw_image(man, man->images.floor, man->map.x, man->map.y);
 				man->images.coincount++;
-				mlx_image_to_window(man->mlx, man->images.coin, man->map.x * 100, man->map.y * 100);
+				draw_image(man, man->images.coin, man->map.x, man->map.y);
 			}
 			else if (man->map.fullmap[man->map.y][man->map.x] == 'E')
-				mlx_image_to_window(man->mlx, man->images.end, man->map.x * 100, man->map.y * 100);
+				draw_image(man, man->images.end, man->map.x, man->map.y);
 			else if (man->map.fullmap[man->map.y][man->map.x] == 'P')
-				mlx_image_to_window(man->mlx, man->images.floor, man->map.x * 100, man->map.y * 100);
+				draw_image(man, man->images.floor, man->map.x, man->map.y);
 			man->map.x++;
 		}
 		man->map.y++;
 	}
 }
-
 
 void	coindel(t_game *man)
 {
@@ -95,19 +92,24 @@ int	endgame(t_game *man, int dir, char axis)
 		man->images.player->instances[0].z -= 1;
 		mlx_close_window(man->mlx);
 	}
-
 	return (0);
 }
 
 void	makewindow(t_game *man)
 {
-	man->mlx = mlx_init((man->map.x_end - 1) * 100,
-			man->map.y_end * 100, "ballz", true);
+	man->mlx = mlx_init((man->map.x_end - 1) * 100, man->map.y_end * 100,
+			"ballz", true);
 	imageload(man);
 	mapmake(man);
 	placeplayer(man);
-	flood_fill(man, 4, 1);
-	if (man->map.countc != man->images.coincount + 2)
+	if (checkwalls(man) == 1)
+	{
+		ft_printf("Error\nwalls_not_valid\n");
+		exit(EXIT_FAILURE);
+	}
+	flood_fill(man, man->images.player->instances[0].x / 100,
+		man->images.player->instances[0].y / 100);
+	if (man->map.countc != man->images.coincount + 2 || man->map.countc == 2)
 	{
 		ft_printf("Error\nMAP_NOT_VALID\n");
 		exit(EXIT_FAILURE);

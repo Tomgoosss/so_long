@@ -1,0 +1,4 @@
+
+Map extension isn't checked\n
+Non-existent file / file without permissions cause segfault\n
+GNL can't distinguish between EOF (end of file) / Error\n

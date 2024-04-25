@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tomgoossens <tomgoossens@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:30:57 by tgoossen          #+#    #+#             */
-/*   Updated: 2024/02/27 12:54:20 by tgoossen         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:24:41 by tomgoossens      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	draw_image(t_game *man, void *image, int x, int y)
+{
+	mlx_image_to_window(man->mlx, image, x * 100, y * 100);
+}
 
 void	imageload(t_game *man)
 {
@@ -20,18 +25,16 @@ void	imageload(t_game *man)
 	mlx_texture_t	*p;
 	mlx_texture_t	*w;
 
-	c = mlx_load_png("/home/tgoossen/Documents/so_long/pictures/coin.png");
-	e = mlx_load_png("/home/tgoossen/Documents/so_long/pictures/end.png");
-	f = mlx_load_png("/home/tgoossen/Documents/so_long/pictures/floor.png");
-	p = mlx_load_png("/home/tgoossen/Documents/so_long/pictures/marijn.png");
-	w = mlx_load_png("/home/tgoossen/Documents/so_long/pictures/wall.png");
-
+	c = mlx_load_png("pictures/coin.png");
+	e = mlx_load_png("pictures/end.png");
+	f = mlx_load_png("pictures/floor.png");
+	p = mlx_load_png("pictures/marijn.png");
+	w = mlx_load_png("pictures/wall.png");
 	man->images.coin = mlx_texture_to_image(man->mlx, c);
 	man->images.end = mlx_texture_to_image(man->mlx, e);
 	man->images.floor = mlx_texture_to_image(man->mlx, f);
 	man->images.player = mlx_texture_to_image(man->mlx, p);
 	man->images.wall = mlx_texture_to_image(man->mlx, w);
-
 	mlx_delete_texture(c);
 	mlx_delete_texture(e);
 	mlx_delete_texture(f);
@@ -48,8 +51,6 @@ void	set0(t_game *game)
 	game->map.tempx = 0;
 	game->map.x_end = 0;
 	game->map.y_end = 0;
-	game->map.playerx = 0;
-	game->map.playery = 0;
 	game->map.x = 0;
 	game->map.y = 0;
 	game->map.movemens = 0;
@@ -62,26 +63,25 @@ void	set0(t_game *game)
 int	main(int argc, char *argv[])
 {
 	t_game	*man;
-	int		testvalid;
 
-	if (!argv[1])
+	if (!argv[1] || argc > 2)
 	{
-		ft_printf("Error\nmap input invalid");
+		ft_printf("Error\n");
 		exit(1);
 	}
-	argc = 0;
-	testvalid = 0;
 	man = (t_game *)malloc(sizeof(t_game));
+	if (!man)
+	{
+		ft_printf("Error\nMALLOC_FAILED");
+		exit(1);
+	}
 	set0(man);
-	testvalid = xycheck(man, argv);
-	if (testvalid == 1)
+	if (xycheck(man, argv) == 1)
 	{
 		ft_printf("Error\nMAP_NOT_VALID\n");
 		exit(EXIT_FAILURE);
 	}
 	twodarray(man, argv);
 	makewindow(man);
-	exit(1);
 	return (EXIT_SUCCESS);
 }
-
