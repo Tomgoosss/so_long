@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tomgoossens <tomgoossens@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:30:32 by tgoossen          #+#    #+#             */
-/*   Updated: 2024/03/21 19:24:50 by tomgoossens      ###   ########.fr       */
+/*   Updated: 2024/04/26 13:46:21 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ int	xycheck(t_game *man, char *argv[])
 
 	temp = 0;
 	man->fd = open(argv[1], O_RDONLY);
-	man->map.one_line = get_next_line(man->fd);
-	if (!man->map.one_line)
+	if (man->fd == -1)
 	{
-		close(man->fd);
-		exit(1);
+		ft_printf("Error\nfile could not read try other file\n");
+		exit(EXIT_FAILURE);
 	}
+	man->map.one_line = get_next_line(man->fd);
 	temp = strlen(man->map.one_line);
 	while (man->map.one_line != NULL)
 	{
@@ -123,17 +123,16 @@ void	twodarray(t_game *man, char *argv[])
 	if (man->fd == -1)
 	{
 		ft_printf("Error\nfile could not read try other file\n");
-		ft_free(&man->map.all);
 		exit(EXIT_FAILURE);
 	}
 	man->map.all = malloc(man->num + 1);
 	if (!man->map.all)
 	{
 		ft_printf("Error\nfile could not read try other file\n");
-		ft_free(&man->map.all);
 		exit(EXIT_FAILURE);
 	}
 	read(man->fd, man->map.all, man->num + 1);
+	man->map.all[man->num] = '\0';
 	man->map.fullmap = ft_split(man->map.all, '\n');
 	man->map.fullmapcheck = ft_split(man->map.all, '\n');
 	ft_free(&man->map.all);

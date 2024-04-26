@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tomgoossens <tomgoossens@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:30:57 by tgoossen          #+#    #+#             */
-/*   Updated: 2024/03/21 19:24:41 by tomgoossens      ###   ########.fr       */
+/*   Updated: 2024/04/26 10:30:55 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "so_long.h"
 
 #include "so_long.h"
 
