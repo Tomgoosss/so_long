@@ -1,13 +1,13 @@
 NAME	:= so_long
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast #-g -fsanitize=address
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g -fsanitize=address
 LIBMLX	:= ./MLX42
 MLXA := ./MLX42/build/libmlx42.a
 LIBFT := ./libft
 LIBFT_A = ./libft/libft.a
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include -I$(LIBFT)
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm  $(LIBFT)/libft.a #-fsanitize=address
-SRCS	:= main.c map.c movecollect.c #$(shell find ./src -iname "*.c")
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm  $(LIBFT)/libft.a -fsanitize=address
+SRCS	:= main.c map.c movecollect.c free.c#$(shell find ./src -iname "*.c") 
 OBJS	:= ${SRCS:.c=.o}
 
 all: $(MLXA) $(LIBFT_A) $(NAME)

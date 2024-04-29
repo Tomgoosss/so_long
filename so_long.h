@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:51:04 by tgoossen          #+#    #+#             */
-/*   Updated: 2024/04/25 11:40:00 by tgoossen         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:47:46 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void			flood_fill(t_game *man, int pos_x, int pos_y);
 void			imageload(t_game *man);
 void			draw_image(t_game *man, void *image, int x, int y);
 int				checkwalls(t_game *man);
+void			free2darray(char **arr);
 
 #endif

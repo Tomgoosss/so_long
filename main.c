@@ -6,13 +6,27 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:30:57 by tgoossen          #+#    #+#             */
-/*   Updated: 2024/04/26 10:30:55 by tgoossen         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:47:01 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#include "so_long.h"
+int	check_ber(char *line)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = ft_strlen(line);
+	if (len < 4)
+		return (1);
+	i = len - 4;
+	if (line[i] != '.' || line[i + 1] != 'b'
+		|| line[i + 2] != 'e' || line[i + 3] != 'r')
+		return (1);
+	return (0);
+}
 
 void	draw_image(t_game *man, void *image, int x, int y)
 {
@@ -66,7 +80,7 @@ int	main(int argc, char *argv[])
 {
 	t_game	*man;
 
-	if (!argv[1] || argc > 2)
+	if (!argv[1] || argc > 2 || check_ber(argv[1]))
 	{
 		ft_printf("Error\n");
 		exit(1);
@@ -85,5 +99,8 @@ int	main(int argc, char *argv[])
 	}
 	twodarray(man, argv);
 	makewindow(man);
+	free2darray(man->map.fullmap);
+	free2darray(man->map.fullmapcheck);
+	free(man);
 	return (EXIT_SUCCESS);
 }
