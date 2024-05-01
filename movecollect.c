@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:32:00 by tgoossen          #+#    #+#             */
-/*   Updated: 2024/05/01 13:23:33 by tgoossen         ###   ########.fr       */
+/*   Updated: 2024/05/01 13:39:46 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	mapmake(t_game *man)
 				draw_image(man, man->images.end, man->map.x, man->map.y);
 			else if (man->map.fullmap[man->map.y][man->map.x] == 'P')
 				draw_image(man, man->images.floor, man->map.x, man->map.y);
+			else
+				man->map.countc = -11111111;
 			man->map.x++;
 		}
 		man->map.y++;
