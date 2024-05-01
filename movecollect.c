@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:32:00 by tgoossen          #+#    #+#             */
-/*   Updated: 2024/04/29 14:36:57 by tgoossen         ###   ########.fr       */
+/*   Updated: 2024/05/01 13:23:33 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	placeplayer(t_game *man)
 {
+	int i;
+
+	i = 0;
 	man->map.x = 0;
 	man->map.y = 0;
 	while (man->map.y != man->map.y_end)
@@ -22,12 +25,19 @@ void	placeplayer(t_game *man)
 		while (man->map.fullmap[man->map.y][man->map.x] != '\0')
 		{
 			if (man->map.fullmap[man->map.y][man->map.x] == 'P')
+			{
 				mlx_image_to_window(man->mlx, man->images.player, man->map.x
 					* 100, man->map.y * 100);
+				i++;
+			}
+			if (man->map.fullmap[man->map.y][man->map.x] == 'E')
+				i++;
 			man->map.x++;
 		}
 		man->map.y++;
 	}
+	if(i > 2)
+		man->map.countc = -1000000;
 }
 
 void	mapmake(t_game *man)
