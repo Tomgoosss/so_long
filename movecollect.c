@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:32:00 by tgoossen          #+#    #+#             */
-/*   Updated: 2024/05/01 13:39:46 by tgoossen         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:59:29 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	placeplayer(t_game *man)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	man->map.x = 0;
@@ -36,7 +36,7 @@ void	placeplayer(t_game *man)
 		}
 		man->map.y++;
 	}
-	if(i > 2)
+	if (i > 2)
 		man->map.countc = -1000000;
 }
 
